@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technology Information Forum Hub</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        background: #f5f6fa;
+        min-height: 100vh;
+      }
+      
+      /* 头部导航 */
+      header {
+        background: linear-gradient(135deg, #00a8ff 0%, #0078d4 100%);
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+      }
+      
+      .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+      
+      .logout-btn {
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.3);
+        padding: 8px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+      
+      .logout-btn:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-1px);
+      }
+      
+      /* 主要内容区域 */
+      .main-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 20px;
+      }
+      
+      /* 论坛板块 */
+      .forum-section {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      
+      .section-title {
+        font-size: 1.4rem;
+        color: #333;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #0078d4;
+      }
+      
+      .forum-categories {
+        display: grid;
+        gap: 15px;
+      }
+      
+      .category {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+      }
+      
+      .category:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+      }
+      
+      .category-icon {
+        font-size: 2rem;
+        margin-right: 15px;
+        width: 50px;
+        text-align: center;
+      }
+      
+      .category-info {
+        flex: 1;
+      }
+      
+      .category-name {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+      }
+      
+      .category-desc {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      
+      .category-stats {
+        text-align: right;
+        font-size: 0.85rem;
+        color: #999;
+      }
+      
+      /* 热门帖子 */
+      .hot-posts {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      
+      .post-list {
+        list-style: none;
+      }
+      
+      .post-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .post-item:last-child {
+        border-bottom: none;
+      }
+      
+      .post-item:hover {
+        background: #f8f9fa;
+        margin: 0 -10px;
+        padding: 12px 10px;
+      }
+      
+      .post-title {
+        color: #333;
+        font-size: 0.95rem;
+        margin-bottom: 5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      
+      .post-meta {
+        font-size: 0.8rem;
+        color: #999;
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .post-author {
+        color: #0078d4;
+      }
+      
+      /* 快速发帖 */
+      .quick-post {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        margin-top: 20px;
+      }
+      
+      .post-textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        resize: vertical;
+        font-family: inherit;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      
+      .post-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .post-options {
+        display: flex;
+        gap: 10px;
+      }
+      
+      .post-btn {
+        background: #0078d4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+      
+      .post-btn:hover {
+        background: #005a9e;
+        transform: translateY(-1px);
+      }
+      
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .main-container {
+          grid-template-columns: 1fr;
+        }
+        
+        .header-content {
+          flex-direction: column;
+          gap: 15px;
+        }
+        
+        .category-stats {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <a href="#" class="logo">💻 Technology Information Forum Hub</a>
+        <div class="user-menu">
+          <div class="user-info">
+            <div class="avatar" id="userAvatar">U</div>
+            <span id="username">用户</span>
+          </div>
+          <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <div class="content-area">
+        <!-- 论坛板块 -->
+        <section class="forum-section">
+          <h2 class="section-title">🔬 科技板块</h2>
+          <div class="forum-categories">
+            <a href="#" class="category" onclick="enterCategory('人工智能')">
+              <div class="category-icon">🤖</div>
+              <div class="category-info">
+                <div class="category-name">人工智能</div>
+                <div class="category-desc">机器学习、深度学习、AI应用、算法讨论</div>
+              </div>
+              <div class="category-stats">
+                <div>2.1k 帖子</div>
+                <div>5.8k 回复</div>
+              </div>
+            </a>
+            
+            <a href="#" class="category" onclick="enterCategory('编程开发')">
+              <div class="category-icon">💻</div>
+              <div class="category-info">
+                <div class="category-name">编程开发</div>
+                <div class="category-desc">Web开发、移动开发、软件工程、编程语言</div>
+              </div>
+              <div class="category-stats">
+                <div>1.8k 帖子</div>
+                <div>4.2k 回复</div>
+              </div>
+            </a>
+            
+            <a href="#" class="category" onclick="enterCategory('硬件技术')">
+              <div class="category-icon">⚡</div>
+              <div class="category-info">
+                <div class="category-name">硬件技术</div>
+                <div class="category-desc">芯片设计、硬件架构、物联网、嵌入式系统</div>
+              </div>
+              <div class="category-stats">
+                <div>956 帖子</div>
+                <div>2.3k 回复</div>
+              </div>
+            </a>
+            
+            <a href="#" class="category" onclick="enterCategory('区块链')">
+              <div class="category-icon">🔗</div>
+              <div class="category-info">
+                <div class="category-name">区块链</div>
+                <div class="category-desc">加密货币、智能合约、DeFi、Web3技术</div>
+              </div>
+              <div class="category-stats">
+                <div>678 帖子</div>
+                <div>1.9k 回复</div>
+              </div>
+            </a>
+            
+            <a href="#" class="category" onclick="enterCategory('科技前沿')">
+              <div class="category-icon">🚀</div>
+              <div class="category-info">
+                <div class="category-name">科技前沿</div>
+                <div class="category-desc">量子计算、生物科技、新能源、太空探索</div>
+              </div>
+              <div class="category-stats">
+                <div>523 帖子</div>
+                <div>1.4k 回复</div>
+              </div>
+            </a>
+            
+            <a href="#" class="category" onclick="enterCategory('技术问答')">
+              <div class="category-icon">❓</div>
+              <div class="category-info">
+                <div class="category-name">技术问答</div>
+                <div class="category-desc">编程问题、技术难题、学习指导、经验分享</div>
+              </div>
+              <div class="category-stats">
+                <div>1.5k 帖子</div>
+                <div>3.7k 回复</div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- 快速发帖 -->
+        <section class="quick-post">
+          <h2 class="section-title">✍️ 快速发帖</h2>
+          <textarea class="post-textarea" id="postContent" placeholder="分享您的想法..."></textarea>
+          <div class="post-actions">
+            <div class="post-options">
+              <select id="postCategory" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="人工智能">人工智能</option>
+                <option value="编程开发">编程开发</option>
+                <option value="硬件技术">硬件技术</option>
+                <option value="区块链">区块链</option>
+                <option value="科技前沿">科技前沿</option>
+                <option value="技术问答">技术问答</option>
+              </select>
+            </div>
+            <button class="post-btn" onclick="publishPost()">发布帖子</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- 侧边栏 -->
+      <aside>
+        <!-- 热门帖子 -->
+        <section class="hot-posts">
+          <h3 class="section-title">🔥 热门帖子</h3>
+          <ul class="post-list" id="hotPostsList">
+            <li class="post-item" onclick="viewPost(1)">
+              <div class="post-title">【AI】GPT-5即将发布？最新技术突破分析</div>
+              <div class="post-meta">
+                <span class="post-author">AI研究员</span>
+                <span>回复: 256</span>
+              </div>
+            </li>
+            <li class="post-item" onclick="viewPost(2)">
+              <div class="post-title">【开发】React 19新特性详解与实践经验</div>
+              <div class="post-meta">
+                <span class="post-author">前端工程师</span>
+                <span>回复: 178</span>
+              </div>
+            </li>
+            <li class="post-item" onclick="viewPost(3)">
+              <div class="post-title">【量子】量子计算机商业化应用前景探讨</div>
+              <div class="post-meta">
+                <span class="post-author">量子物理学者</span>
+                <span>回复: 142</span>
+              </div>
+            </li>
+            <li class="post-item" onclick="viewPost(4)">
+              <div class="post-title">【求助】Python异步编程性能优化问题</div>
+              <div class="post-meta">
+                <span class="post-author">Python开发者</span>
+                <span>回复: 89</span>
+              </div>
+            </li>
+            <li class="post-item" onclick="viewPost(5)">
+              <div class="post-title">【区块链】Web3.0去中心化社交网络架构设计</div>
+              <div class="post-meta">
+                <span class="post-author">区块链架构师</span>
+                <span>回复: 312</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 论坛统计 -->
+        <section class="hot-posts" style="margin-top: 20px;">
+          <h3 class="section-title">📊 论坛统计</h3>
+          <div style="padding: 10px 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <span>总帖数:</span>
+              <strong>7,567</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <span>总回复:</span>
+              <strong>19.3k</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <span>注册用户:</span>
+              <strong>15,892</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>在线用户:</span>
+              <strong style="color: #28a745;">892</strong>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <script>
+      // 获取登录时保存的用户名
+      const username = localStorage.getItem('username') || '博士';
+      document.getElementById('username').textContent = username;
+      document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+      
+      // 模拟论坛数据
+      const forumData = {
+        categories: {
+          '人工智能': { posts: 2100, replies: 5800 },
+          '编程开发': { posts: 1800, replies: 4200 },
+          '硬件技术': { posts: 956, replies: 2300 },
+          '区块链': { posts: 678, replies: 1900 },
+          '科技前沿': { posts: 523, replies: 1400 },
+          '技术问答': { posts: 1500, replies: 3700 }
+        },
+        posts: [
+          { id: 1, title: '【AI】GPT-5即将发布？最新技术突破分析', author: 'AI研究员', replies: 256 },
+          { id: 2, title: '【开发】React 19新特性详解与实践经验', author: '前端工程师', replies: 178 },
+          { id: 3, title: '【量子】量子计算机商业化应用前景探讨', author: '量子物理学者', replies: 142 },
+          { id: 4, title: '【求助】Python异步编程性能优化问题', author: 'Python开发者', replies: 89 },
+          { id: 5, title: '【区块链】Web3.0去中心化社交网络架构设计', author: '区块链架构师', replies: 312 }
+        ]
+      };
+      
+      // 更新页面标题
+      document.title = `TechHub科技论坛 - 欢迎${username}`;
+      
+      function logout() {
+        // 清除登录状态
+        localStorage.removeItem('username');
+        localStorage.removeItem('isLoggedIn');
+        
+        // 跳转回登录页面
+        window.location.href = 'login.html';
+      }
+      
+      // 检查登录状态
+      if (!localStorage.getItem('isLoggedIn')) {
+        // 如果未登录，重定向到登录页面
+        window.location.href = 'login.html';
+      }
+      
+      // 进入板块
+      function enterCategory(categoryName) {
+        alert(`正在进入科技板块: ${categoryName}`);
+        // 这里可以跳转到具体的板块页面
+        console.log(`进入科技板块: ${categoryName}`);
+      }
+      
+      // 查看帖子
+      function viewPost(postId) {
+        alert(`正在查看帖子 #${postId}...`);
+        // 这里可以跳转到具体的帖子页面
+        console.log(`查看帖子: #${postId}`);
+      }
+      
+      // 发布帖子
+      function publishPost() {
+        const content = document.getElementById('postContent').value.trim();
+        const category = document.getElementById('postCategory').value;
+        
+        if (!content) {
+          alert('请输入帖子内容！');
+          return;
+        }
+        
+        // 模拟发布帖子
+        alert(`帖子已发布到 ${category} 板块！\n内容: ${content.substring(0, 50)}${content.length > 50 ? '...' : ''}`);
+        
+        // 清空输入框
+        document.getElementById('postContent').value = '';
+        
+        // 这里可以添加实际的发帖逻辑
+        console.log(`发布帖子到 ${category}: ${content}`);
+      }
+      
+      // 添加回车键发帖功能
+      document.getElementById('postContent').addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'Enter') {
+          publishPost();
+        }
+      });
+    </script>
+  </body>
+</html>
