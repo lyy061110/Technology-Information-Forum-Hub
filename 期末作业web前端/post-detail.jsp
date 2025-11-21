@@ -166,322 +166,30 @@
         }
         
         .post-meta {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            color: #666;
-            font-size: 14px;
-        }
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- 头部导航 -->
+<header>
+    <div class="header-content">
+        <div style="display: flex; align-items: center;">
+            <button class="back-btn" onclick="window.location.href='index.jsp'">← Back</button>
+            <a href="index.jsp" class="logo">TechHub</a>
+        </div>
         
-        .post-author-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        <nav class="nav-links">
+            <a href="index.jsp" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Categories</a>
+            <a href="create-post.jsp" class="nav-link">✍️ Post</a>
+        </nav>
         
-        .author-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .post-tags {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        
-        .tag {
-            background: #e3f2fd;
-            color: #1976d2;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        .post-content {
-            line-height: 1.8;
-            color: #333;
-            font-size: 16px;
-        }
-        
-        .post-content h2 {
-            color: #333;
-            margin: 30px 0 15px 0;
-            font-size: 1.4rem;
-        }
-        
-        .post-content h3 {
-            color: #555;
-            margin: 25px 0 12px 0;
-            font-size: 1.2rem;
-        }
-        
-        .post-content p {
-            margin-bottom: 15px;
-        }
-        
-        .post-content ul, .post-content ol {
-            margin: 15px 0 15px 30px;
-        }
-        
-        .post-content li {
-            margin-bottom: 8px;
-        }
-        
-        .post-content code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: #e83e8c;
-        }
-        
-        .post-content blockquote {
-            border-left: 4px solid #0078d4;
-            padding-left: 20px;
-            margin: 20px 0;
-            color: #666;
-            font-style: italic;
-        }
-        
-        .post-footer {
-            border-top: 2px solid #f0f0f0;
-            padding-top: 20px;
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .post-stats {
-            display: flex;
-            gap: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .post-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .action-btn {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .action-btn:hover {
-            background: #e9ecef;
-            transform: translateY(-1px);
-        }
-        
-        .action-btn.liked {
-            background: #0078d4;
-            color: white;
-            border-color: #0078d4;
-        }
-        
-        /* 评论区 */
-        .comments-section {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        
-        .comments-header {
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .comments-title {
-            font-size: 1.4rem;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .comments-count {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .comment-form {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .comment-textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-            resize: vertical;
-            margin-bottom: 10px;
-        }
-        
-        .comment-textarea:focus {
-            outline: none;
-            border-color: #0078d4;
-            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.1);
-        }
-        
-        .comment-submit {
-            background: #0078d4;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .comment-submit:hover {
-            background: #0056b3;
-            transform: translateY(-1px);
-        }
-        
-        .comment {
-            border-bottom: 1px solid #f0f0f0;
-            padding: 20px 0;
-        }
-        
-        .comment:last-child {
-            border-bottom: none;
-        }
-        
-        .comment-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-        
-        .comment-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        
-        .comment-meta {
-            flex: 1;
-        }
-        
-        .comment-author {
-            font-weight: 500;
-            color: #333;
-            font-size: 14px;
-        }
-        
-        .comment-time {
-            color: #666;
-            font-size: 12px;
-        }
-        
-        .comment-content {
-            color: #333;
-            line-height: 1.6;
-            font-size: 14px;
-            margin-left: 44px;
-        }
-        
-        .comment-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            margin-left: 44px;
-        }
-        
-        .comment-action {
-            color: #666;
-            font-size: 12px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        
-        .comment-action:hover {
-            color: #0078d4;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 0 15px;
-            }
-            
-            .post-container, .comments-section {
-                padding: 20px;
-            }
-            
-            .post-title {
-                font-size: 1.5rem;
-            }
-            
-            .post-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .post-footer {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- 头部导航 -->
-    <header>
-        <div class="header-content">
-            <div style="display: flex; align-items: center;">
-                <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
-                <a href="index.html" class="logo">TechHub</a>
+        <div class="user-menu">
+            <div class="user-info">
+                <div class="avatar" id="userAvatar">U</div>
+                <span id="username">User</span>
             </div>
-            
-            <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="#" class="nav-link">Categories</a>
-                <a href="create-post.html" class="nav-link">✍️ Post</a>
-            </nav>
-            
-            <div class="user-menu">
-                <div class="user-info">
-                    <div class="avatar" id="userAvatar">U</div>
-                    <span id="username">User</span>
-                </div>
-                <button class="logout-btn" onclick="logout()">Logout</button>
-            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </header>
 
@@ -489,8 +197,8 @@
     <main class="main-container">
         <!-- 面包屑导航 -->
         <div class="breadcrumb">
-            <a href="index.html">Home</a> › 
-            <a href="index.html">Hot Posts</a> › 
+            <a href="index.jsp">Home</a> › 
+            <a href="index.jsp">Hot Posts</a> › 
             GPT-5 Coming Soon? Latest Technical Breakthrough Analysis
         </div>
 
@@ -708,21 +416,20 @@
     </main>
 
     <script>
-        // Get logged-in username
+        // 先检查登录状态
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.jsp';
+        }
+        
+        // 获取登录用户名
         const username = localStorage.getItem('username') || 'User';
         document.getElementById('username').textContent = username;
         document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
         
-        // Check login status
-        if (!localStorage.getItem('isLoggedIn')) {
-            window.location.href = 'login.html';
-        }
-        
-        // Logout function
         function logout() {
             localStorage.removeItem('username');
             localStorage.removeItem('isLoggedIn');
-            window.location.href = 'login.html';
+            window.location.href = 'login.jsp';
         }
         
         // Toggle like

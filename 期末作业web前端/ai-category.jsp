@@ -184,7 +184,7 @@
             margin-bottom: 5px;
         }
         
-        /* 筛选和排序 */
+/* 筛选和排序 */
         .filter-bar {
             background: transparent;
             border-radius: 12px;
@@ -479,14 +479,14 @@
     <header>
         <div class="header-content">
             <div style="display: flex; align-items: center;">
-                <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
-                <a href="index.html" class="logo">TechHub</a>
+                <button class="back-btn" onclick="window.location.href='index.jsp'">← Back</button>
+                <a href="index.jsp" class="logo">TechHub</a>
             </div>
             
             <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.jsp" class="nav-link">Home</a>
                 <a href="#" class="nav-link">Categories</a>
-                <a href="create-post.html" class="nav-link">✍️ Post</a>
+                <a href="create-post.jsp" class="nav-link">✍️ Post</a>
             </nav>
             
             <div class="user-menu">
@@ -547,7 +547,7 @@
                     </select>
                 </div>
                 
-                <a href="create-post.html?category=AI" class="create-post-btn">
+                <a href="create-post.jsp?category=AI" class="create-post-btn">
                     <span>✍️</span>
                     <span>Create Post</span>
                 </a>

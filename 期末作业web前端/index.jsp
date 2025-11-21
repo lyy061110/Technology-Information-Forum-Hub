@@ -303,7 +303,7 @@
       <div class="header-content">
         <a href="#" class="logo">💻 Technology Information Forum Hub</a>
         <div class="user-menu">
-          <button class="create-post-btn" onclick="window.location.href='create-post.html'">
+          <button class="create-post-btn" onclick="window.location.href='create-post.jsp'">
             ✍️ Post
           </button>
           <div class="user-info">
@@ -482,7 +482,12 @@
     </div>
 
     <script>
-      // Get logged-in username
+      // 先检查登录状态
+      if (!localStorage.getItem('isLoggedIn')) {
+        window.location.href = 'login.jsp';
+      }
+      
+      // 获取登录用户名
       const username = localStorage.getItem('username') || 'User';
       document.getElementById('username').textContent = username;
       document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
@@ -506,74 +511,35 @@
         ]
       };
       
-      // Update page title
+      // 更新页面标题
       document.title = `TechHub Technology Forum - Welcome ${username}`;
       
       function logout() {
-        // Clear login status
         localStorage.removeItem('username');
         localStorage.removeItem('isLoggedIn');
-        
-        // Redirect to login page
-        window.location.href = 'login.html';
+        window.location.href = 'login.jsp';
       }
       
-      // Check login status
-      if (!localStorage.getItem('isLoggedIn')) {
-        // If not logged in, redirect to login page
-        window.location.href = 'login.html';
-      }
-      
-      // Enter category
       function enterCategory(categoryName) {
         if (categoryName === 'AI') {
-          // Redirect to AI category page
-          window.location.href = 'ai-category.html';
+          window.location.href = 'ai-category.jsp';
         } else {
           alert(`Entering technology forum: ${categoryName}`);
-          // Can redirect to specific category page here
           console.log(`Entering technology forum: ${categoryName}`);
         }
       }
       
-      // View post
       function viewPost(postId) {
         if (postId === 1) {
-          // Redirect to GPT-5 post detail page
-          window.location.href = 'post-detail.html';
+          window.location.href = 'post-detail.jsp';
         } else {
           alert(`Viewing post: #${postId}...`);
-          // Can redirect to specific post page here
           console.log(`Viewing post: #${postId}`);
         }
       }
       
-      // Publish post
-      function publishPost() {
-        const content = document.getElementById('postContent').value.trim();
-        const category = document.getElementById('postCategory').value;
-        
-        if (!content) {
-          alert('Please enter post content!');
-          return;
-        }
-        
-        // Simulate publishing post
-        alert(`Post published to ${category} forum!\nContent: ${content.substring(0, 50)}${content.length > 50 ? '...' : ''}`);
-        
-        // Clear input field
-        document.getElementById('postContent').value = '';
-        
-        // Can add actual post publishing logic here
-        console.log(`Publishing post to ${category}: ${content}`);
-      }
-      
-      // Add Enter key post publishing feature
-      document.getElementById('postContent').addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key === 'Enter') {
-          publishPost();
-        }
-      });
+      // 移除对不存在DOM元素的引用
+      // 移除publishPost函数和相关的事件监听器
     </script>
   </body>
 </html>

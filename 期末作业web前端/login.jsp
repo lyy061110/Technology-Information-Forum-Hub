@@ -23,7 +23,7 @@
       media="screen and (min-width:375px)"
     />
     <script src="./js/less.min.js"></script>
-    <link rel="stylesheet" href="./font/iconfont.css" />
+    <link rel="stylesheet" href="./front/iconfont.css">
     <link rel="shortcut icon" href="./img/icon/favicon.ico" />
     <title>Arknight</title>
   </head>
@@ -42,7 +42,7 @@
           <button type="submit">Login</button>
           <div class="control">
             <p>尚未注册？<a href="#">Register</a></p>
-            <a href="index.html">回到主页</a>
+            <a href="index.jsp">回到主页</a>
           </div>
         </form>
         <form action="" class="register disappear">
@@ -52,7 +52,7 @@
           <button type="submit">Register</button>
           <div class="control">
             <p>注册过了？<a href="#">Login</a></p>
-            <a href="index.html">回到主页</a>
+            <a href="index.jsp">回到主页</a>
           </div>
         </form>
       </div>
@@ -63,5 +63,4 @@
     </main>
   </body>
 
-  <script src="./js/login.js"></script>
 </html>
