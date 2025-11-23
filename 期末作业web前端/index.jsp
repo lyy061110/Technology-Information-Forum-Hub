@@ -402,7 +402,7 @@
             <p style="color: #666; margin-bottom: 20px; font-size: 16px;">
               Want to share your technical insights and ideas?
             </p>
-            <button class="post-btn" onclick="window.location.href='create-post.html'" style="font-size: 16px; padding: 12px 30px;">
+            <button class="post-btn" onclick="window.location.href='create-post.jsp'" style="font-size: 16px; padding: 12px 30px;">
               📝 Create New Post
             </button>
             <p style="color: #999; margin-top: 15px; font-size: 14px;">
@@ -482,44 +482,77 @@
     </div>
 
     <script>
-      // 先检查登录状态
-      if (!localStorage.getItem('isLoggedIn')) {
-        window.location.href = 'login.jsp';
+      // 修改登录状态检查
+      function checkLoginStatus() {
+        // 检查服务器Session
+        const serverLoggedIn = <%= session.getAttribute("isLoggedIn") != null %>;
+        const serverUsername = '<%= session.getAttribute("username") != null ? session.getAttribute("username") : "" %>';
+
+        console.log('服务器Session检查:', {
+          isLoggedIn: serverLoggedIn,
+          username: serverUsername,
+          sessionId: '<%= session.getId() %>'
+        });
+
+        if (serverLoggedIn && serverUsername) {
+          // 服务器Session有效，更新前端显示
+          document.getElementById('username').textContent = serverUsername;
+          document.getElementById('userAvatar').textContent = serverUsername.charAt(0).toUpperCase();
+
+          // 同时更新localStorage以便下次快速检查
+          localStorage.setItem('username', serverUsername);
+          localStorage.setItem('isLoggedIn', 'true');
+
+          console.log('使用服务器Session登录');
+          return true;
+        } else {
+          // 检查前端存储
+          const localLoggedIn = localStorage.getItem('isLoggedIn');
+          const localUsername = localStorage.getItem('username');
+
+          console.log('localStorage检查:', {
+            isLoggedIn: localLoggedIn,
+            username: localUsername
+          });
+
+          if (localLoggedIn === 'true' && localUsername) {
+            // 前端存储有效，更新显示
+            document.getElementById('username').textContent = localUsername;
+            document.getElementById('userAvatar').textContent = localUsername.charAt(0).toUpperCase();
+            console.log('使用localStorage登录');
+            return true;
+          } else {
+            // 完全未登录
+            console.log('用户未登录，跳转到登录页面');
+            window.location.href = 'login.jsp';
+            return false;
+          }
+        }
       }
-      
-      // 获取登录用户名
-      const username = localStorage.getItem('username') || 'User';
-      document.getElementById('username').textContent = username;
-      document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
-      
-      // Mock forum data
-      const forumData = {
-        categories: {
-          'AI': { posts: 2100, replies: 5800 },
-          'Programming': { posts: 1800, replies: 4200 },
-          'Hardware': { posts: 956, replies: 2300 },
-          'Blockchain': { posts: 678, replies: 1900 },
-          'Tech Frontier': { posts: 523, replies: 1400 },
-          'Q&A': { posts: 1500, replies: 3700 }
-        },
-        posts: [
-          { id: 1, title: '【AI】GPT-5 Coming Soon? Latest Technical Breakthrough Analysis', author: 'AI Researcher', replies: 256 },
-          { id: 2, title: '【Dev】React 19 New Features Deep Dive & Practical Experience', author: 'Frontend Engineer', replies: 178 },
-          { id: 3, title: '【Quantum】Quantum Computer Commercial Application Prospects', author: 'Quantum Physicist', replies: 142 },
-          { id: 4, title: '【Help】Python Async Programming Performance Optimization', author: 'Python Developer', replies: 89 },
-          { id: 5, title: '【Blockchain】Web3.0 Decentralized Social Network Architecture', author: 'Blockchain Architect', replies: 312 }
-        ]
-      };
-      
-      // 更新页面标题
-      document.title = `TechHub Technology Forum - Welcome ${username}`;
-      
+
+      // 页面加载时检查
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('页面加载完成，开始检查登录状态...');
+        if (!checkLoginStatus()) {
+          return;
+        }
+
+        // 更新页面标题
+        const username = document.getElementById('username').textContent;
+        document.title = `TechHub Technology Forum - Welcome ${username}`;
+      });
+
       function logout() {
+        // 清除所有存储的登录信息
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('isLoggedIn');
         localStorage.removeItem('username');
         localStorage.removeItem('isLoggedIn');
+
+        // 跳转到登出页面或直接跳转登录页
         window.location.href = 'login.jsp';
       }
-      
+
       function enterCategory(categoryName) {
         if (categoryName === 'AI') {
           window.location.href = 'ai-category.jsp';
@@ -528,7 +561,7 @@
           console.log(`Entering technology forum: ${categoryName}`);
         }
       }
-      
+
       function viewPost(postId) {
         if (postId === 1) {
           window.location.href = 'post-detail.jsp';
@@ -537,9 +570,6 @@
           console.log(`Viewing post: #${postId}`);
         }
       }
-      
-      // 移除对不存在DOM元素的引用
-      // 移除publishPost函数和相关的事件监听器
     </script>
   </body>
 </html>
