@@ -11,7 +11,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/Technology-Information-Forum-Hub/web_frontend/createPost")
+@WebServlet("/Front-end-section/createPost")
 public class PostServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

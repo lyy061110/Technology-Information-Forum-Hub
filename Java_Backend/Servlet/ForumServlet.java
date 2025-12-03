@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-@WebServlet("/Technology-Information-Forum-Hub/web_frontend/forum")
+@WebServlet("/Front-end-section/forum")
 public class ForumServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

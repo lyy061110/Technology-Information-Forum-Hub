@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Technology-Information-Forum-Hub:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Technology_Information_Forum_Hub_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Technology-Information-Forum-Hub/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Technology-Information-Forum-Hub" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mysql-connector-java-jdk11-8.0.19" />
+          <element id="library" level="project" name="guicedee.services.jakarta.servlet.api" />
+          <element id="library" level="project" name="wisdom.framework.mysql.connector.java" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="Technology-Information-Forum-Hub/web/Web2" />
+    </root>
+  </artifact>
+</component>
