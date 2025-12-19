@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html data-theme="light" lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>发布帖子 - TechHub科技论坛</title>
+    <!-- 字体设置 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <style>
       * {
         margin: 0;
@@ -14,59 +18,69 @@
         box-sizing: border-box;
       }
       
+      :root {
+        --primary-color: #0078d4;
+        --secondary-color: #00a8ff;
+        --background-color: #ffffff;
+        --text-color: #333333;
+        --text-light: #666666;
+        --border-color: #e0e0e0;
+        --card-background: #ffffff;
+        --hover-background: #f8f9fa;
+        --shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      
+      [data-theme="dark"] {
+        --primary-color: #00a8ff;
+        --secondary-color: #0078d4;
+        --background-color: #1a1a1a;
+        --text-color: #ffffff;
+        --text-light: #b0b0b0;
+        --border-color: #333333;
+        --card-background: #2d2d2d;
+        --hover-background: #3a3a3a;
+        --shadow: 0 2px 10px rgba(0,0,0,0.2);
+      }
+      
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-        background: linear-gradient(135deg, #f5f6fa 0%, #e9ecef 100%);
+        font-family: 'Open Sans', 'Microsoft YaHei', sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
         min-height: 100vh;
+        transition: all 0.3s ease;
       }
       
       /* 头部导航 */
       header {
-        background: linear-gradient(135deg, #00a8ff 0%, #0078d4 100%);
-        color: white;
-        padding: 1rem 0;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        background: var(--card-background);
+        border-bottom: 2px solid var(--border-color);
+        box-shadow: var(--shadow);
         position: sticky;
         top: 0;
         z-index: 100;
+        transition: all 0.3s ease;
       }
       
       .header-content {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0.75rem 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
       
       .logo {
-        font-size: 1.8rem;
-        font-weight: bold;
+        font-size: 1.5rem;
+        font-weight: 700;
         text-decoration: none;
-        color: white;
-      }
-      
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 30px;
-      }
-      
-      .nav-link {
-        color: white;
-        text-decoration: none;
-        transition: opacity 0.3s ease;
-      }
-      
-      .nav-link:hover {
-        opacity: 0.8;
+        color: var(--text-color);
       }
       
       .user-menu {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 15px;
       }
       
       .user-info {
@@ -79,17 +93,24 @@
         width: 35px;
         height: 35px;
         border-radius: 50%;
-        background: rgba(255,255,255,0.3);
+        background: var(--primary-color);
+        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: bold;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      
+      .avatar:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 8px rgba(0,120,212,0.3);
       }
       
       .logout-btn {
-        background: rgba(255,255,255,0.2);
-        color: white;
-        border: 1px solid rgba(255,255,255,0.3);
+        background: transparent;
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
         padding: 8px 20px;
         border-radius: 20px;
         cursor: pointer;
@@ -98,42 +119,64 @@
       }
       
       .logout-btn:hover {
-          background: rgba(255,255,255,0.3);
-          transform: translateY(-1px);
-        }
-        
-        .back-btn {
-          background: #6c757d;
-          color: white;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 6px;
-          cursor: pointer;
-          font-size: 14px;
-          transition: all 0.3s ease;
-          margin-right: 15px;
-        }
-        
-        .back-btn:hover {
-          background: #5a6268;
-          transform: translateY(-1px);
-        }
+        background: var(--hover-background);
+        transform: translateY(-1px);
+      }
+      
+      .create-post-btn {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+      
+      .create-post-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,120,212,0.3);
+      }
+      
+      /* 主题切换按钮 */
+      .theme-toggle {
+        background: transparent;
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .theme-toggle:hover {
+        background: var(--hover-background);
+        transform: rotate(180deg);
+      }
       
       /* 主要内容区域 */
       .main-container {
-        max-width: 900px;
+        max-width: 1200px;
         margin: 30px auto;
-        padding: 0 20px;
+        padding: 20px;
       }
       
       .breadcrumb {
         margin-bottom: 20px;
-        color: #666;
+        color: var(--text-light);
         font-size: 14px;
       }
       
       .breadcrumb a {
-        color: #0078d4;
+        color: var(--primary-color);
         text-decoration: none;
       }
       
@@ -143,26 +186,28 @@
       
       /* 发帖表单 */
       .post-form-container {
-        background: white;
+        background: var(--card-background);
         border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        padding: 25px;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
       }
       
       .form-header {
         margin-bottom: 30px;
         padding-bottom: 20px;
-        border-bottom: 2px solid #f0f0f0;
+        border-bottom: 3px solid var(--primary-color);
       }
       
       .form-title {
-        font-size: 1.8rem;
-        color: #333;
+        font-size: 1.5rem;
+        color: var(--text-color);
         margin-bottom: 10px;
+        font-weight: 700;
       }
       
       .form-subtitle {
-        color: #666;
+        color: var(--text-light);
         font-size: 14px;
       }
       
@@ -174,7 +219,7 @@
         display: block;
         margin-bottom: 8px;
         font-weight: 500;
-        color: #333;
+        color: var(--text-color);
       }
       
       .required {
@@ -186,10 +231,12 @@
       .form-textarea {
         width: 100%;
         padding: 12px 16px;
-        border: 2px solid #e0e0e0;
+        border: 2px solid var(--border-color);
         border-radius: 8px;
         font-size: 14px;
         font-family: inherit;
+        background-color: var(--background-color);
+        color: var(--text-color);
         transition: all 0.3s ease;
       }
       
@@ -197,7 +244,7 @@
       .form-select:focus,
       .form-textarea:focus {
         outline: none;
-        border-color: #0078d4;
+        border-color: var(--primary-color);
         box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.1);
       }
       
@@ -226,20 +273,21 @@
       }
       
       .tag {
-        background: #e3f2fd;
-        color: #1976d2;
+        background: var(--hover-background);
+        color: var(--primary-color);
         padding: 4px 12px;
         border-radius: 16px;
         font-size: 12px;
         display: flex;
         align-items: center;
         gap: 5px;
+        border: 1px solid var(--border-color);
       }
       
       .tag-remove {
         cursor: pointer;
         font-weight: bold;
-        color: #666;
+        color: var(--text-light);
       }
       
       .tag-remove:hover {
@@ -251,36 +299,37 @@
         display: flex;
         gap: 10px;
         padding: 10px;
-        background: #f8f9fa;
-        border: 2px solid #e0e0e0;
+        background: var(--hover-background);
+        border: 2px solid var(--border-color);
         border-bottom: none;
         border-radius: 8px 8px 0 0;
         flex-wrap: wrap;
       }
       
       .toolbar-btn {
-        background: white;
-        border: 1px solid #ddd;
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
         padding: 6px 10px;
         border-radius: 4px;
         cursor: pointer;
         font-size: 14px;
+        color: var(--text-color);
         transition: all 0.2s ease;
       }
       
       .toolbar-btn:hover {
-        background: #f0f0f0;
+        background: var(--hover-background);
       }
       
       .toolbar-btn.active {
-        background: #0078d4;
+        background: var(--primary-color);
         color: white;
-        border-color: #0078d4;
+        border-color: var(--primary-color);
       }
       
       .toolbar-separator {
         width: 1px;
-        background: #ddd;
+        background: var(--border-color);
         margin: 0 5px;
       }
       
@@ -309,7 +358,7 @@
         align-items: center;
         margin-top: 30px;
         padding-top: 20px;
-        border-top: 2px solid #f0f0f0;
+        border-top: 2px solid var(--border-color);
       }
       
       .action-buttons {
@@ -328,38 +377,39 @@
       }
       
       .btn-primary {
-        background: #0078d4;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
         color: white;
       }
       
       .btn-primary:hover {
-        background: #005a9e;
         transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,120,212,0.3);
       }
       
       .btn-secondary {
-        background: #6c757d;
-        color: white;
+        background: transparent;
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
       }
       
       .btn-secondary:hover {
-        background: #545b62;
+        background: var(--hover-background);
       }
       
       .btn-outline {
-        background: white;
-        color: #0078d4;
-        border: 2px solid #0078d4;
+        background: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
       }
       
       .btn-outline:hover {
-        background: #0078d4;
+        background: var(--primary-color);
         color: white;
       }
       
       /* 字符统计 */
       .char-count {
-        color: #666;
+        color: var(--text-light);
         font-size: 12px;
         text-align: right;
         margin-top: 5px;
@@ -377,10 +427,11 @@
       .preview-container {
         margin-top: 20px;
         padding: 20px;
-        background: #f8f9fa;
+        background: var(--card-background);
         border-radius: 8px;
-        border: 2px solid #e0e0e0;
+        border: 2px solid var(--border-color);
         display: none;
+        box-shadow: var(--shadow);
       }
       
       .preview-container.active {
@@ -389,14 +440,14 @@
       
       .preview-title {
         font-size: 1.2rem;
-        color: #333;
+        color: var(--text-color);
         margin-bottom: 15px;
-        font-weight: bold;
+        font-weight: 700;
       }
       
       .preview-content {
         line-height: 1.6;
-        color: #555;
+        color: var(--text-color);
       }
       
       /* 响应式设计 */
@@ -405,8 +456,15 @@
           grid-template-columns: 1fr;
         }
         
-        .nav-links {
-          display: none;
+        .header-content {
+          flex-direction: column;
+          gap: 15px;
+          padding: 15px 20px;
+        }
+        
+        .user-menu {
+          width: 100%;
+          justify-content: space-between;
         }
         
         .form-actions {
@@ -439,27 +497,122 @@
       .post-form-container {
         animation: fadeIn 0.5s ease;
       }
+      
+      /* 页脚 */
+      footer {
+        background: var(--card-background);
+        border-top: 1px solid var(--border-color);
+        padding: 40px 0;
+        margin-top: 40px;
+        transition: all 0.3s ease;
+      }
+      
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+      }
+      
+      .footer-section h3 {
+        color: var(--text-color);
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+      
+      .footer-section p {
+        color: var(--text-light);
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      
+      .footer-links {
+        list-style: none;
+      }
+      
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+      
+      .footer-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      
+      .footer-links a:hover {
+        color: var(--primary-color);
+        padding-left: 8px;
+      }
+      
+      .social-icons {
+        display: flex;
+        gap: 15px;
+      }
+      
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--hover-background);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      
+      .social-icon:hover {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: white;
+        transform: translateY(-2px);
+      }
+      
+      .copyright {
+        max-width: 1200px;
+        margin: 30px auto 0;
+        padding: 20px 0;
+        text-align: center;
+        color: var(--text-light);
+        border-top: 1px solid var(--border-color);
+        font-size: 0.9rem;
+      }
+      
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .footer-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        
+        .social-icons {
+          justify-content: center;
+        }
+      }
     </style>
   </head>
   <body>
     <header>
       <div class="header-content">
-        <a href="index.html" class="logo">💻 TechHub科技论坛</a>
-        <nav class="nav-links">
-          <a href="index.html" class="nav-link">首页</a>
-          <a href="#" class="nav-link">板块</a>
-          <a href="#" class="nav-link">热门</a>
-          <a href="create-post.html" class="nav-link">发帖</a>
-        </nav>
-        <div class="header-right">
-          <button class="back-btn" onclick="window.location.href='index.html'">
-            🏠 返回主页
+        <a href="index.html" class="logo">💻 Technology Information Forum Hub</a>
+        <div class="user-menu">
+          <button class="create-post-btn" onclick="window.location.href='create-post.html'">
+            <i class="fas fa-pen"></i> Post
           </button>
           <div class="user-info">
             <div class="avatar" id="userAvatar">U</div>
-            <span id="username">用户</span>
+            <span id="username">user</span>
           </div>
-          <button class="logout-btn" onclick="logout()">退出登录</button>
+          <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
         </div>
       </div>
     </header>
@@ -631,15 +784,99 @@
     </div>
 
     <script>
-      // 获取登录用户信息
-      const username = localStorage.getItem('username') || '用户';
-      document.getElementById('username').textContent = username;
-      document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
-      
-      // 检查登录状态
-      if (!localStorage.getItem('isLoggedIn')) {
-        window.location.href = 'login.html';
+      // 主题切换功能
+      const themeToggle = document.getElementById('themeToggle');
+      const htmlElement = document.documentElement;
+      const themeIcon = themeToggle.querySelector('i');
+
+      // 从本地存储获取主题设置
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
       }
+
+      // 更新主题图标
+      function updateThemeIcon(theme) {
+        if (theme === 'dark') {
+          themeIcon.classList.remove('fa-moon');
+          themeIcon.classList.add('fa-sun');
+        } else {
+          themeIcon.classList.remove('fa-sun');
+          themeIcon.classList.add('fa-moon');
+        }
+      }
+
+      // 切换主题函数
+      function toggleTheme() {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+      }
+
+      // 为按钮添加点击事件
+      themeToggle.addEventListener('click', toggleTheme);
+
+      // 修改登录状态检查
+      function checkLoginStatus() {
+        // 检查服务器Session
+        const serverLoggedIn = <%= session.getAttribute("isLoggedIn") != null %>;
+        const serverUsername = '<%= session.getAttribute("username") != null ? session.getAttribute("username") : "" %>';
+
+        console.log('服务器Session检查:', {
+          isLoggedIn: serverLoggedIn,
+          username: serverUsername,
+          sessionId: '<%= session.getId() %>'
+        });
+
+        if (serverLoggedIn && serverUsername) {
+          // 服务器Session有效，更新前端显示
+          document.getElementById('username').textContent = serverUsername;
+          document.getElementById('userAvatar').textContent = serverUsername.charAt(0).toUpperCase();
+
+          // 同时更新localStorage以便下次快速检查
+          localStorage.setItem('username', serverUsername);
+          localStorage.setItem('isLoggedIn', 'true');
+
+          console.log('使用服务器Session登录');
+          return true;
+        } else {
+          // 检查前端存储
+          const localLoggedIn = localStorage.getItem('isLoggedIn');
+          const localUsername = localStorage.getItem('username');
+
+          console.log('localStorage检查:', {
+            isLoggedIn: localLoggedIn,
+            username: localUsername
+          });
+
+          if (localLoggedIn === 'true' && localUsername) {
+            // 前端存储有效，更新显示
+            document.getElementById('username').textContent = localUsername;
+            document.getElementById('userAvatar').textContent = localUsername.charAt(0).toUpperCase();
+            console.log('使用localStorage登录');
+            return true;
+          } else {
+            // 完全未登录
+            console.log('用户未登录，跳转到登录页面');
+            window.location.href = 'login.html';
+            return false;
+          }
+        }
+      }
+
+      // 页面加载时检查
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('页面加载完成，开始检查登录状态...');
+        if (!checkLoginStatus()) {
+          return;
+        }
+      });
+
+      // 获取登录用户信息
+      const username = localStorage.getItem('username') || 'user';
       
       // 标签管理
       const tags = [];
@@ -888,16 +1125,29 @@
       
       // 退出登录
       function logout() {
-        if (confirm('确定要退出登录吗？')) {
-          localStorage.removeItem('username');
-          localStorage.removeItem('isLoggedIn');
-          window.location.href = 'login.html';
-        }
+        // 清除所有存储的登录信息
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('username');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('theme');
+
+        // 跳转到登出页面或直接跳转登录页
+        window.location.href = 'login.html';
       }
       
-      // 页面加载时加载草稿
-      window.addEventListener('load', function() {
+      // 页面加载时初始化
+      document.addEventListener('DOMContentLoaded', function() {
+        if (!checkLoginStatus()) {
+          return;
+        }
+        
+        // 加载草稿
         loadDraft();
+        
+        // 更新页面标题
+        const username = document.getElementById('username').textContent;
+        document.title = `TechHub Technology Forum - Create Post`;
       });
       
       // 快捷键支持
@@ -914,5 +1164,41 @@
         }
       });
     </script>
+
+    <!-- 页脚 -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Tech Forum</h3>
+          <p>Technology Information Forum Hub is a platform for tech enthusiasts to share knowledge, discuss trends, and connect with like-minded individuals.</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="create-post.html">Create Post</a></li>
+            <li><a href="#">Forum Rules</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Have questions or suggestions? Feel free to reach out to us.</p>
+          <p><i class="fas fa-envelope"></i> info@techforum.com</p>
+          <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Technology Information Forum Hub. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>
