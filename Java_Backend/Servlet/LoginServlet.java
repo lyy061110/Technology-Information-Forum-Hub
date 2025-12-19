@@ -9,7 +9,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/Technology-Information-Forum-Hub/web_frontend/login")
+@WebServlet("/Front-end-section/login")
 public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -52,18 +52,21 @@ public class UserDAO {
         return false; // 明确的return
     }
 
+    // 在 UserDAO.java 中添加这个方法
     public int getUserIdByUsername(String username) {
         String sql = "SELECT id FROM users WHERE username = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
-                return rs.getInt("id"); // 明确的return
+                return rs.getInt("id");
             }
         } catch (SQLException e) {
+            System.err.println("获取用户ID失败: " + e.getMessage());
             e.printStackTrace();
         }
-        return -1; // 明确的return
+        return -1;
     }
 
     // 新增方法：根据ID获取用户

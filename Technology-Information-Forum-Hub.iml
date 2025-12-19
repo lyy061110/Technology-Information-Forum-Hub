@@ -4,50 +4,21 @@
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/Front-end section/web/WEB-INF/web.xml" />
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/web/WEB-INF/web.xml" />
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/Front-end section/web" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web3">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/Front-end section/out/artifacts/web_Web_exploded/web3/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/Front-end section/out/artifacts/web_Web_exploded/web3" relative="/" />
+          <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
       </configuration>
     </facet>
     <facet type="web" name="Web2">
       <configuration>
         <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/Front-end section/out/artifacts/web_Web_exploded/web/WEB-INF/web.xml" />
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/Front-end section/out/artifacts/web_Web_exploded/web" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web5">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/Front-end section/out/artifacts/web_Web_exploded/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/Front-end section/out/artifacts/web_Web_exploded" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web4">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/Front-end section/web3/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/Front-end section/web3" relative="/" />
+          <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
       </configuration>
     </facet>
@@ -59,5 +30,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="guicedee.services.jakarta.servlet.api" level="project" />
+    <orderEntry type="library" exported="" name="weicoder.fork.mysql.connector.java.jdk11" level="project" />
+    <orderEntry type="library" exported="" name="wisdom.framework.mysql.connector.java" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-jdk11-8.0.19" level="project" />
   </component>
 </module>
