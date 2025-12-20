@@ -1,0 +1,28 @@
+/* 暗色模式样式 */
+html[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --nav-bg-color: #1e1e1e;
+  --footer-bg-color: #1e1e1e;
+}
+
+html[data-theme="dark"] body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+html[data-theme="dark"] .navbar {
+  background-color: var(--nav-bg-color) !important;
+}
+
+html[data-theme="dark"] .navbar .nav-link {
+  color: var(--text-color);
+}
+
+html[data-theme="dark"] .footer {
+  background-color: var(--footer-bg-color);
+}
+
+html[data-theme="dark"] .copyrights {
+  background-color: #181818;
+}
