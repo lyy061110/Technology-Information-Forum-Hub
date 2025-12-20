@@ -793,22 +793,11 @@
         const previewContent = document.getElementById('previewContent');
 
         // 构建预览HTML
-        let previewHTML = '
-            <div style="margin-bottom: 15px;">
-                <strong>板块:</strong> ' + categoryText + ' |
-                <strong>类型:</strong> ' + type + '
-            </div>
-            <h3 style="color: #333; margin-bottom: 15px;">' + title + '</h3>
-            <div style="white-space: pre-wrap; line-height: 1.6;">' + content + '</div>
-        ';
+        let previewHTML = '\n            <div style="margin-bottom: 15px;">\n                <strong>板块:</strong> ' + categoryText + ' |\n                <strong>类型:</strong> ' + type + '\n            </div>\n            <h3 style="color: #333; margin-bottom: 15px;">' + title + '</h3>\n            <div style="white-space: pre-wrap; line-height: 1.6;">' + content + '</div>\n        ';
 
         // 添加标签部分（使用JavaScript的tags数组）
         if (tags.length > 0) {
-            previewHTML += '
-                <div style="margin-top: 15px;">
-                    <strong>标签:</strong> ' + tags.join(', ') + '
-                </div>
-            ';
+            previewHTML += '\n                <div style="margin-top: 15px;">\n                    <strong>标签:</strong> ' + tags.join(', ') + '\n                </div>\n            ';
         }
 
         previewContent.innerHTML = previewHTML;
