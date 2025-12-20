@@ -681,12 +681,12 @@
     }
 
     function renderTags() {
-        tagsDisplay.innerHTML = tags.map((tag, index) => `
-          <span class="tag">
-            ${tag}
-            <span class="tag-remove" onclick="removeTag(${index})">×</span>
-          </span>
-        `).join('');
+        tagsDisplay.innerHTML = tags.map((tag, index) => 
+          '<span class="tag">' + 
+          tag + 
+          '<span class="tag-remove" onclick="removeTag(' + index + ')">×</span>' + 
+          '</span>'
+        ).join('');
     }
 
     // 字符统计
@@ -705,7 +705,7 @@
 
     function updateCharCount(element, countElement, maxLength) {
         const length = element.value.length;
-        countElement.textContent = `${length} / ${maxLength}`;
+        countElement.textContent = length + ' / ' + maxLength;
 
         countElement.className = 'char-count';
         if (length > maxLength * 0.9) {
@@ -726,13 +726,13 @@
         let formattedText = '';
         switch(command) {
             case 'bold':
-                formattedText = `**${selectedText}**`;
+                formattedText = '**' + selectedText + '**';
                 break;
             case 'italic':
-                formattedText = `*${selectedText}*`;
+                formattedText = '*' + selectedText + '*';
                 break;
             case 'underline':
-                formattedText = `__${selectedText}__`;
+                formattedText = '__' + selectedText + '__';
                 break;
         }
 
@@ -746,7 +746,7 @@
         if (url) {
             const textarea = document.getElementById('postContent');
             const start = textarea.selectionStart;
-            const linkText = `[链接文本](${url})`;
+            const linkText = '[链接文本](' + url + ')';
             textarea.value = textarea.value.substring(0, start) + linkText + textarea.value.substring(start);
             textarea.focus();
         }
@@ -793,22 +793,22 @@
         const previewContent = document.getElementById('previewContent');
 
         // 构建预览HTML
-        let previewHTML = `
+        let previewHTML = '
             <div style="margin-bottom: 15px;">
-                <strong>板块:</strong> ${categoryText} |
-                <strong>类型:</strong> ${type}
+                <strong>板块:</strong> ' + categoryText + ' |
+                <strong>类型:</strong> ' + type + '
             </div>
-            <h3 style="color: #333; margin-bottom: 15px;">${title}</h3>
-            <div style="white-space: pre-wrap; line-height: 1.6;">${content}</div>
-        `;
+            <h3 style="color: #333; margin-bottom: 15px;">' + title + '</h3>
+            <div style="white-space: pre-wrap; line-height: 1.6;">' + content + '</div>
+        ';
 
         // 添加标签部分（使用JavaScript的tags数组）
         if (tags.length > 0) {
-            previewHTML += `
+            previewHTML += '
                 <div style="margin-top: 15px;">
-                    <strong>标签:</strong> ${tags.join(', ')}
+                    <strong>标签:</strong> ' + tags.join(', ') + '
                 </div>
-            `;
+            ';
         }
 
         previewContent.innerHTML = previewHTML;
