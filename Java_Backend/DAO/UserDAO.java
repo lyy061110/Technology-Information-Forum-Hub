@@ -1,3 +1,5 @@
+//数据访问对象（Data Access Object）,是连接业务逻辑和数据库的中间层。
+//简单来说:DAO 就是专门负责和数据库打交道的类,把复杂的 SQL 操作包装成简单的方法调用.
 // UserDAO.java
 package DAO;
 
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    private Connection connection;
+    private Connection connection;// 数据库连接（每个DAO对象持有一个连接）
 
     public UserDAO(Connection connection) {
         this.connection = connection;

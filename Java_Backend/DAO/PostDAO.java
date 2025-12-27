@@ -41,13 +41,6 @@ public class PostDAO {
         }
     }
 
-    // 可以添加其他方法，如获取帖子列表等
-    public ResultSet getPostsByCategory(int categoryId) {
-        // 实现获取指定版块帖子的逻辑
-        return null;
-    }
-
-    // 在 PostDAO.java 中添加
     public List<Post> getHotPosts(int limit) {
         List<Post> posts = new ArrayList<>();
         String sql = "SELECT p.*, u.username as author_name " +
