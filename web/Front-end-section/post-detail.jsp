@@ -1050,21 +1050,20 @@
         const commentsList = document.querySelector('.comments-list');
         const newComment = document.createElement('div');
         newComment.className = 'comment';
-        newComment.innerHTML = `
-                <div class="comment-header">
-                    <div class="comment-avatar">${username.charAt(0).toUpperCase()}</div>
-                    <div class="comment-meta">
-                        <div class="comment-author">${username}</div>
-                        <div class="comment-time">Just now</div>
-                    </div>
-                </div>
-                <div class="comment-content">${commentText}</div>
-                <div class="comment-actions">
-                    <a href="#" class="comment-action">👍 Like (0)</a>
-                    <a href="#" class="comment-action">💬 Reply</a>
-                    <a href="#" class="comment-action">🔗 Share</a>
-                </div>
-            `;
+        newComment.innerHTML = 
+                '<div class="comment-header">' +
+                    '<div class="comment-avatar">' + username.charAt(0).toUpperCase() + '</div>' +
+                    '<div class="comment-meta">' +
+                        '<div class="comment-author">' + username + '</div>' +
+                        '<div class="comment-time">Just now</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="comment-content">' + commentText + '</div>' +
+                '<div class="comment-actions">' +
+                    '<a href="#" class="comment-action">👍 Like (0)</a>' +
+                    '<a href="#" class="comment-action">💬 Reply</a>' +
+                    '<a href="#" class="comment-action">🔗 Share</a>' +
+                '</div>';
 
         // Insert at the beginning of comments list
         commentsList.insertBefore(newComment, commentsList.firstChild);
@@ -1075,7 +1074,7 @@
         // Update comment count
         const commentsCount = document.querySelector('.comments-count');
         const currentCount = parseInt(commentsCount.textContent);
-        commentsCount.textContent = `${currentCount + 1} comments`;
+        commentsCount.textContent = currentCount + 1 + ' comments';
     }
 
     // Add Ctrl+Enter shortcut for commenting
